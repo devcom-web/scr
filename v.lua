@@ -178,35 +178,36 @@ else
 end
 -- This part is closed source, it's just a basic check! ^^
 
-local r_f = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local w = r_f:CreateWindow({
+local _0x1 = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local _0x2 = _0x1:CreateWindow({
     Name = "Vantage",
     LoadingTitle = [["Made for people who actually know luau."]],
     LoadingSubtitle = "- Malik 2026;",
     ConfigurationSaving = { Enabled = false }
 })
 
-local t1 = w:CreateTab("Vis", 4483362458)
-local t2 = w:CreateTab("Misc", 4483362458)
+local _0x3 = _0x2:CreateTab("Vis", 4483362458)
+local _0x4 = _0x2:CreateTab("Misc", 4483362458)
 
-local fl = {
+local _0x5 = {
     t = false,
     p = false,
     m = false,
     i = false,
     n = false,
-    f = false
+    f = false,
+    ss = false
 }
 
-local l = game:GetService("Lighting")
-local ol = {
-    b = l.Brightness,
-    c = l.ClockTime,
-    f = l.FogEnd,
-    s = l.GlobalShadows
+local _0x6 = game:GetService("Lighting")
+local _0x7 = {
+    b = _0x6.Brightness,
+    c = _0x6.ClockTime,
+    f = _0x6.FogEnd,
+    s = _0x6.GlobalShadows
 }
 
-local function g_m(n)
+local function _0x8(n)
     local r = workspace:FindFirstChild("CurrentRoom")
     if not r then return nil end
     for _, v in ipairs(r:GetChildren()) do
@@ -216,7 +217,7 @@ local function g_m(n)
     return nil
 end
 
-local function e(o, c, s)
+local function _0x9(o, c, s)
     if not o then return end
     local h = o:FindFirstChild("dw_hl")
     if s then
@@ -233,16 +234,16 @@ local function e(o, c, s)
     end
 end
 
-local ts = game:GetService("TweenService")
-local cg = game:GetService("CoreGui")
-local rs = game:GetService("RunService")
-local n_g = Instance.new("ScreenGui")
-n_g.Name = "dw_notifs"
-n_g.Parent = (gethui and gethui()) or cg
+local _0x10 = game:GetService("TweenService")
+local _0x11 = game:GetService("CoreGui")
+local _0x12 = game:GetService("RunService")
+local _0x13 = Instance.new("ScreenGui")
+_0x13.Name = "dw_notifs"
+_0x13.Parent = (gethui and gethui()) or _0x11
 
-local function s_n(ti, de)
+local function _0x14(ti, de)
     local du = 2 
-    local f = Instance.new("Frame", n_g)
+    local f = Instance.new("Frame", _0x13)
     f.Size = UDim2.new(0, 480, 0, 80)
     f.Position = UDim2.new(0.5, -240, -0.5, 0)
     f.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
@@ -256,7 +257,7 @@ local function s_n(ti, de)
     st.Thickness = 3
     
     local cn
-    cn = rs.RenderStepped:Connect(function()
+    cn = _0x12.RenderStepped:Connect(function()
         if st.Parent then
             st.Color = Color3.fromHSV(tick() % 4 / 4, 1, 1)
         else
@@ -286,16 +287,16 @@ local function s_n(ti, de)
     dl.TextWrapped = true
 
     local y = 20
-    for _, ch in ipairs(n_g:GetChildren()) do
+    for _, ch in ipairs(_0x13:GetChildren()) do
         if ch:IsA("Frame") and ch ~= f then
             y = y + ch.Size.Y.Offset + 10
         end
     end
 
-    ts:Create(f, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -240, 0, y)}):Play()
+    _0x10:Create(f, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -240, 0, y)}):Play()
     
     task.delay(du, function()
-        local o = ts:Create(f, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -240, -0.5, 0)})
+        local o = _0x10:Create(f, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -240, -0.5, 0)})
         o:Play()
         o.Completed:Wait()
         if cn then cn:Disconnect() end
@@ -303,50 +304,50 @@ local function s_n(ti, de)
     end)
 end
 
-local c_d = nil
-local f_s = { s = false, h = false, f = false }
-local m_l = {"Astro", "Shelly", "Sprout", "Vee", "Pebble", "Bobette", "Bassie", "Gourdy", "Dandy"}
+local _0x15 = nil
+local _0x16 = { s = false, h = false, f = false }
+local _0x17 = {"Astro", "Shelly", "Sprout", "Vee", "Pebble", "Bobette", "Bassie", "Gourdy", "Dandy"}
 
 task.spawn(function()
     while task.wait(0.5) do
-        local m_d = g_m("Monsters")
+        local m_d = _0x8("Monsters")
         if m_d then
-            for _, m in ipairs(m_d:GetChildren()) do e(m, Color3.new(1, 0, 0), fl.t) end
+            for _, m in ipairs(m_d:GetChildren()) do _0x9(m, Color3.new(1, 0, 0), _0x5.t) end
         end
 
-        local g_d = g_m("Generators")
+        local g_d = _0x8("Generators")
         if g_d then
-            for _, g in ipairs(g_d:GetChildren()) do e(g, Color3.new(0.6, 0.3, 1), fl.m) end
+            for _, g in ipairs(g_d:GetChildren()) do _0x9(g, Color3.new(0.6, 0.3, 1), _0x5.m) end
         end
 
-        if fl.p then
+        if _0x5.p then
             for _, p in ipairs(game.Players:GetPlayers()) do
-                if p.Character and p ~= game.Players.LocalPlayer then e(p.Character, Color3.new(0, 1, 0), true) end
+                if p.Character and p ~= game.Players.LocalPlayer then _0x9(p.Character, Color3.new(0, 1, 0), true) end
             end
         else
             for _, p in ipairs(game.Players:GetPlayers()) do
-                if p.Character then e(p.Character, nil, false) end
+                if p.Character then _0x9(p.Character, nil, false) end
             end
         end
 
-        if fl.i then
+        if _0x5.i then
             for _, v in ipairs(workspace:GetDescendants()) do
-                if v.Name:find("Capsule") or v.Name:find("Item") then e(v, Color3.new(1, 1, 0), true) end
+                if v.Name:find("Capsule") or v.Name:find("Item") then _0x9(v, Color3.new(1, 1, 0), true) end
             end
         end
 
-        if fl.f then
-            l.Brightness = 2
-            l.ClockTime = 14
-            l.FogEnd = 100000
-            l.GlobalShadows = false
+        if _0x5.f then
+            _0x6.Brightness = 2
+            _0x6.ClockTime = 14
+            _0x6.FogEnd = 100000
+            _0x6.GlobalShadows = false
         end
         
-        if g_d ~= c_d then
-            c_d = g_d
-            f_s.s = false
-            f_s.h = false
-            f_s.f = false
+        if g_d ~= _0x15 then
+            _0x15 = g_d
+            _0x16.s = false
+            _0x16.h = false
+            _0x16.f = false
         end
         
         local n_g, c_a, r_a = 0, 0, 0
@@ -366,12 +367,12 @@ task.spawn(function()
             end
         end
         
-        if n_g > 0 and not f_s.s then
-            f_s.s = true
-            if fl.n then
+        if n_g > 0 and not _0x16.s then
+            _0x16.s = true
+            if _0x5.n then
                 task.spawn(function()
                     task.wait(2)
-                    local f_m = g_m("Monsters")
+                    local f_m = _0x8("Monsters")
                     local ms = f_m and f_m:GetChildren() or {}
                     local t_c = {}
                     local a_t = {}
@@ -384,7 +385,7 @@ task.spawn(function()
                         local d_s = n
                         if c > 1 then d_s = n .. " (x" .. c .. ")" end
                         table.insert(a_t, d_s)
-                        for _, mn in ipairs(m_l) do
+                        for _, mn in ipairs(_0x17) do
                             if n:find(mn) then table.insert(m_f, d_s) break end
                         end
                     end
@@ -393,40 +394,59 @@ task.spawn(function()
                     if #m_f > 0 then
                         de = de .. '\n<font color="#ff5555">⚠️ MAINS: ' .. table.concat(m_f, ", ") .. '</font>'
                     end
-                    s_n("NEW FLOOR", de)
+                    _0x14("NEW FLOOR", de)
                 end)
             end
         end
         
         if r_a > 0 then
             local pc = (c_a / r_a) * 100
-            if pc >= 50 and not f_s.h then
-                f_s.h = true
-                if fl.n then s_n("FLOOR UPDATE", "Floor is 50% done!") end
+            if pc >= 50 and not _0x16.h then
+                _0x16.h = true
+                if _0x5.n then _0x14("FLOOR UPDATE", "Floor is 50% done!") end
             end
-            if pc >= 90 and not f_s.f then
-                f_s.f = true
-                if fl.n then s_n("FLOOR UPDATE", "Get to elevator !") end
+            if pc >= 90 and not _0x16.f then
+                _0x16.f = true
+                if _0x5.n then _0x14("FLOOR UPDATE", "Get to elevator !") end
             end
         end
     end
 end)
 
-t1:CreateToggle({ Name = "twisted esp", CurrentValue = false, Callback = function(v) fl.t = v end })
-t1:CreateToggle({ Name = "player esp", CurrentValue = false, Callback = function(v) fl.p = v end })
-t1:CreateToggle({ Name = "gen esp", CurrentValue = false, Callback = function(v) fl.m = v end })
-t1:CreateToggle({ Name = "floor notif", CurrentValue = false, Callback = function(v) fl.n = v end })
-t1:CreateToggle({ Name = "item esp", CurrentValue = false, Callback = function(v) fl.i = v end })
-t2:CreateToggle({
+task.spawn(function()
+    local _0x18 = game.Players.LocalPlayer
+    local _0x19 = 1.075
+    local _0x20 = 0
+    while task.wait() do
+        if _0x5.ss and _0x18.Character and _0x18.Character:FindFirstChild("Humanoid") then
+            local _0x21 = _0x18.Character.Humanoid
+            if math.abs(_0x21.WalkSpeed - _0x20) > 0.1 then
+                local _0x22 = _0x21.WalkSpeed * _0x19
+                _0x20 = _0x22
+                _0x21.WalkSpeed = _0x22
+            end
+        else
+            _0x20 = 0
+        end
+    end
+end)
+
+_0x3:CreateToggle({ Name = "twisted esp", CurrentValue = false, Callback = function(v) _0x5.t = v end })
+_0x3:CreateToggle({ Name = "player esp", CurrentValue = false, Callback = function(v) _0x5.p = v end })
+_0x3:CreateToggle({ Name = "gen esp", CurrentValue = false, Callback = function(v) _0x5.m = v end })
+_0x3:CreateToggle({ Name = "floor notif", CurrentValue = false, Callback = function(v) _0x5.n = v end })
+_0x3:CreateToggle({ Name = "item esp", CurrentValue = false, Callback = function(v) _0x5.i = v end })
+_0x4:CreateToggle({ Name = "speedy shoes+", CurrentValue = false, Callback = function(v) _0x5.ss = v end })
+_0x4:CreateToggle({
     Name = "fullbright",
     CurrentValue = false,
     Callback = function(v)
-        fl.f = v
+        _0x5.f = v
         if not v then
-            l.Brightness = ol.b
-            l.ClockTime = ol.c
-            l.FogEnd = ol.f
-            l.GlobalShadows = ol.s
+            _0x6.Brightness = _0x7.b
+            _0x6.ClockTime = _0x7.c
+            _0x6.FogEnd = _0x7.f
+            _0x6.GlobalShadows = _0x7.s
         end
     end
 })
