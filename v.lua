@@ -188,6 +188,7 @@ local _0x2 = _0x1:CreateWindow({
 
 local _0x3 = _0x2:CreateTab("Vis", 4483362458)
 local _0x4 = _0x2:CreateTab("Misc", 4483362458)
+local tk = _0x2:CreateTab("Trinkets", 4483362458)
 
 local _0x5 = {
     t = false,
@@ -196,7 +197,8 @@ local _0x5 = {
     i = false,
     n = false,
     f = false,
-    ss = false
+    ss = false,
+    pp = false
 }
 
 local _0x6 = game:GetService("Lighting")
@@ -302,6 +304,49 @@ local function _0x14(ti, de)
         if cn then cn:Disconnect() end
         f:Destroy()
     end)
+end
+
+local function c_pp(m, mn)
+    local h = Instance.new("Highlight")
+    h.Name = "pp_h"
+    h.FillTransparency = 1
+    h.OutlineColor = Color3.new(1, 1, 1)
+    h.OutlineTransparency = 1 
+    h.Parent = m
+
+    local b = Instance.new("BillboardGui")
+    b.Name = "pp_b"
+    b.Size = UDim2.new(0, 200, 0, 50)
+    b.StudsOffset = Vector3.new(0, 5.5, 0)
+    b.AlwaysOnTop = true
+    b.Parent = m
+
+    local t = Instance.new("TextLabel")
+    t.Size = UDim2.new(1, 0, 1, 0)
+    t.BackgroundTransparency = 1 
+    t.Text = mn
+    t.TextColor3 = Color3.fromRGB(255, 105, 180)
+    t.TextStrokeColor3 = Color3.new(1, 1, 1)
+    t.TextStrokeTransparency = 1 
+    t.TextTransparency = 1 
+    t.Font = Enum.Font.FredokaOne
+    t.TextSize = 24 
+    t.Parent = b
+
+    return h, b
+end
+
+local function f_pp(h, b, i)
+    local ti = TweenInfo.new(0.5)
+    if h then
+        _0x10:Create(h, ti, {OutlineTransparency = i and 0 or 1}):Play()
+    end
+    if b then
+        local t = b:FindFirstChildOfClass("TextLabel")
+        if t then
+            _0x10:Create(t, ti, {TextTransparency = i and 0 or 1, TextStrokeTransparency = i and 0 or 1}):Play()
+        end
+    end
 end
 
 local _0x15 = nil
@@ -414,19 +459,91 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    local _0x18 = game.Players.LocalPlayer
-    local _0x19 = 1.075
-    local _0x20 = 0
+    local lp = game.Players.LocalPlayer
+    local mt = 1.075
+    local bs = 16
+    local on = false
+    
     while task.wait() do
-        if _0x5.ss and _0x18.Character and _0x18.Character:FindFirstChild("Humanoid") then
-            local _0x21 = _0x18.Character.Humanoid
-            if math.abs(_0x21.WalkSpeed - _0x20) > 0.1 then
-                local _0x22 = _0x21.WalkSpeed * _0x19
-                _0x20 = _0x22
-                _0x21.WalkSpeed = _0x22
+        local ch = lp.Character
+        local hm = ch and ch:FindFirstChild("Humanoid")
+        
+        if _0x5.ss and hm then
+            if not on then
+                bs = hm.WalkSpeed
+                hm.WalkSpeed = bs * mt
+                on = true
+            elseif math.abs(hm.WalkSpeed - (bs * mt)) > 0.1 then
+                bs = hm.WalkSpeed
+                hm.WalkSpeed = bs * mt
             end
         else
-            _0x20 = 0
+            if on and hm then
+                hm.WalkSpeed = bs
+            end
+            on = false
+        end
+    end
+end)
+
+task.spawn(function()
+    local lp = game.Players.LocalPlayer
+    local c_m = nil
+    local c_h = nil
+    local c_b = nil
+    
+    while task.wait(0.2) do
+        if not _0x5.pp then
+            if c_m then
+                if c_h then c_h:Destroy() end
+                if c_b then c_b:Destroy() end
+                c_m = nil
+                c_h = nil
+                c_b = nil
+            end
+            continue
+        end
+
+        local ch = lp.Character
+        local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+        if not rp then continue end
+
+        local md = _0x8("Monsters")
+        local n_m = nil
+        local n_d = math.huge
+
+        if md then
+            for _, m in ipairs(md:GetChildren()) do
+                local p = m:FindFirstChild("HumanoidRootPart")
+                if p then
+                    local d = (p.Position - rp.Position).Magnitude
+                    if d < n_d then
+                        n_d = d
+                        n_m = m
+                    end
+                end
+            end
+        end
+
+        if n_m ~= c_m then
+            if c_m then
+                local o_h = c_h
+                local o_b = c_b
+                f_pp(o_h, o_b, false)
+                task.delay(0.5, function()
+                    if o_h then o_h:Destroy() end
+                    if o_b then o_b:Destroy() end
+                end)
+            end
+            c_m = n_m
+            if n_m then
+                local mn = string.gsub(n_m.Name, "Monster", "")
+                c_h, c_b = c_pp(n_m, mn)
+                f_pp(c_h, c_b, true)
+            else
+                c_h = nil
+                c_b = nil
+            end
         end
     end
 end)
@@ -436,7 +553,8 @@ _0x3:CreateToggle({ Name = "player esp", CurrentValue = false, Callback = functi
 _0x3:CreateToggle({ Name = "gen esp", CurrentValue = false, Callback = function(v) _0x5.m = v end })
 _0x3:CreateToggle({ Name = "floor notif", CurrentValue = false, Callback = function(v) _0x5.n = v end })
 _0x3:CreateToggle({ Name = "item esp", CurrentValue = false, Callback = function(v) _0x5.i = v end })
-_0x4:CreateToggle({ Name = "speedy shoes+", CurrentValue = false, Callback = function(v) _0x5.ss = v end })
+tk:CreateToggle({ Name = "speedy shoes+", CurrentValue = false, Callback = function(v) _0x5.ss = v end })
+tk:CreateToggle({ Name = "party popper+", CurrentValue = false, Callback = function(v) _0x5.pp = v end })
 _0x4:CreateToggle({
     Name = "fullbright",
     CurrentValue = false,
